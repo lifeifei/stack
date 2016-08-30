@@ -104,3 +104,7 @@ output "zone_id" {
 output "canonical_hosted_zone_id" {
   value = "${aws_alb.main.canonical_hosted_zone_id}"
 }
+
+output "target_group_arn" {
+  value = "${aws_alb_target_group.main.arn}"
+}

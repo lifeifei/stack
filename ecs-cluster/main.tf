@@ -114,6 +114,10 @@ variable "docker_auth_data" {
   default     = ""
 }
 
+variable "target_group_arns" {
+  description = "A list of aws_target_group ARNs for application load balancer"
+}
+
 resource "aws_security_group" "cluster" {
   name        = "${var.name}-ecs-cluster"
   vpc_id      = "${var.vpc_id}"
@@ -207,6 +211,7 @@ resource "aws_autoscaling_group" "main" {
   max_size             = "${var.max_size}"
   desired_capacity     = "${var.desired_capacity}"
   termination_policies = ["OldestLaunchConfiguration", "Default"]
+  target_group_arns  = ["${split(",", var.target_group_arns)}"]
 
   tag {
     key                 = "Name"

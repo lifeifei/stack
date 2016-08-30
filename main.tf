@@ -129,6 +129,10 @@ variable "ecs_ami" {
   default     = ""
 }
 
+variable "target_group_arns" {
+  description = "A list of aws_target_group ARNs for application load balancer"
+}
+
 module "defaults" {
   source = "./defaults"
   region = "${var.region}"
@@ -204,6 +208,7 @@ module "ecs_cluster" {
   docker_auth_type       = "${var.ecs_docker_auth_type}"
   docker_auth_data       = "${var.ecs_docker_auth_data}"
   security_groups        = "${coalesce(var.ecs_security_groups, format("%s,%s,%s", module.security_groups.internal_ssh, module.security_groups.internal_elb, module.security_groups.external_elb))}"
+  target_group_arns      = "${var.target_group_arns}"
 }
 
 module "s3_logs" {
