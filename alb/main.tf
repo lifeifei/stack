@@ -24,7 +24,7 @@ variable "environment" {
 }
 
 variable "port" {
-  description = "Instance port"
+  description = "port to use"
 }
 
 variable "security_groups" {
@@ -62,7 +62,7 @@ resource "aws_alb" "main" {
 }
 
 resource "aws_alb_target_group" "main" {
-  name     = "lifei-alb-tg"
+  name     = "${var.target_group_name}"
   port     = "${var.port}"
   protocol = "${var.protocol}"
   vpc_id   = "${var.vpc_id}"
